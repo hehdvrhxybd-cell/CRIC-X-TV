@@ -143,7 +143,24 @@ data class InningsScorecard(
     val bowlers: List<BowlerStats>,
     val extras: ExtrasSummary,
     val didNotBat: List<String>
-)
+) {
+    fun formattedOvers(): String {
+        val comp = overs.toInt()
+        val balls = Math.round((overs - comp) * 10f)
+        return "$comp.$balls"
+    }
+
+    fun ballsBowled(): Int {
+        val comp = overs.toInt()
+        val balls = Math.round((overs - comp) * 10f)
+        return (comp * 6) + balls
+    }
+
+    fun runRate(): Float {
+        val b = ballsBowled()
+        return if (b > 0) (runs.toFloat() / b) * 6f else 0f
+    }
+}
 
 data class FullScorecard(
     val innings1: InningsScorecard,

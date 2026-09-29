@@ -265,6 +265,24 @@ fun LiveMatchDetailScreen(
                     Spacer(modifier = Modifier.height(14.dp))
 
                     // Scores Display
+                    if (match.tossResult.isNotEmpty()) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(SurfaceContainerHighest)
+                                .padding(horizontal = 8.dp, vertical = 3.dp)
+                        ) {
+                            Text(
+                                text = "🪙 Toss: ${match.tossResult}",
+                                fontSize = 11.5.sp,
+                                color = TextSecondary,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -275,12 +293,21 @@ fun LiveMatchDetailScreen(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 TeamLogoBadge(team = match.team1, size = 38.dp)
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = match.team1.shortName,
-                                    fontWeight = FontWeight.Black,
-                                    fontSize = 20.sp,
-                                    color = TextPrimary
-                                )
+                                Column {
+                                    Text(
+                                        text = match.team1.shortName,
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 18.sp,
+                                        color = TextPrimary
+                                    )
+                                    Text(
+                                        text = match.team1.name,
+                                        fontSize = 11.sp,
+                                        color = TextTertiary,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
                             }
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(
@@ -318,12 +345,21 @@ fun LiveMatchDetailScreen(
                         // Team 2
                         Column(horizontalAlignment = Alignment.End) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    text = match.team2.shortName,
-                                    fontWeight = FontWeight.Black,
-                                    fontSize = 20.sp,
-                                    color = TextPrimary
-                                )
+                                Column(horizontalAlignment = Alignment.End) {
+                                    Text(
+                                        text = match.team2.shortName,
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 18.sp,
+                                        color = TextPrimary
+                                    )
+                                    Text(
+                                        text = match.team2.name,
+                                        fontSize = 11.sp,
+                                        color = TextTertiary,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
                                 Spacer(modifier = Modifier.width(8.dp))
                                 TeamLogoBadge(team = match.team2, size = 38.dp)
                             }
@@ -724,7 +760,7 @@ fun LiveMatchDetailScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(
-                                        text = "Total Runs (${activeInnings.overs} ov, RR ${String.format(Locale.US, "%.2f", (activeInnings.runs.toFloat() / ((activeInnings.overs.toInt() * 6) + ((activeInnings.overs - activeInnings.overs.toInt()) * 10).toInt()).coerceAtLeast(1)) * 6)})",
+                                        text = "Total Runs (${activeInnings.formattedOvers()} ov, RR ${String.format(Locale.US, "%.2f", activeInnings.runRate())})",
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 13.sp,
                                         color = CricketNeonGreen

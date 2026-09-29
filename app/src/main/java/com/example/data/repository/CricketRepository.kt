@@ -645,7 +645,7 @@ class CricketRepository {
 
         // Increment ball
         val currentCompletedOvers = score.overs.toInt()
-        val currentBallsInOver = ((score.overs - currentCompletedOvers) * 10).toInt()
+        val currentBallsInOver = Math.round((score.overs - currentCompletedOvers) * 10f)
         val newBallsInOver = currentBallsInOver + 1
         val isOverComplete = newBallsInOver >= 6
 
@@ -745,7 +745,7 @@ class CricketRepository {
         // Bowler update
         val bowler = m.currentBowler?.let {
             val comp = it.overs.toInt()
-            val b = ((it.overs - comp) * 10).toInt() + 1
+            val b = Math.round((it.overs - comp) * 10f) + 1
             val updatedOvers = if (b >= 6) (comp + 1).toFloat() else comp + (b / 10f)
             it.copy(
                 overs = updatedOvers,

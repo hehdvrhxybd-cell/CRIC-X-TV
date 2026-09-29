@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.model.CricketMatch
 import com.example.data.model.MatchStatus
-import com.example.ui.components.MatchScoreCard
+import com.example.ui.components.MatchCard
 import com.example.ui.theme.*
 
 @Composable
@@ -165,7 +165,7 @@ fun LiveTabScreen(
             }
         } else {
             items(liveMatches, key = { it.id }) { match ->
-                MatchScoreCard(
+                MatchCard(
                     match = match,
                     onMatchClick = onMatchClick,
                     onToggleFavorite = onToggleFavorite
