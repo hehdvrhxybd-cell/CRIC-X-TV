@@ -24,7 +24,13 @@ jobs:
 
     - name: Build Debug APK
       run: |
-        gradle assembleDebug || (gradle wrapper && ./gradlew assembleDebug)
+        if command -v gradle >/dev/null 2>&1; then
+          gradle assembleDebug
+        else
+          gradle wrapper || true
+          chmod +x gradlew || true
+          ./gradlew assembleDebug
+        fi
 
     - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v4
