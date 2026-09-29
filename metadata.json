@@ -1,0 +1,6 @@
+{
+  "name": "CRIC X TV",
+  "description": "Professional real-time cricket live score app featuring instant live scores, statistics, scorecards, series, points tables, and team updates without commentary.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
